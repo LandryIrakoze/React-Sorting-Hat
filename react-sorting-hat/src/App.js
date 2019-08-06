@@ -15,16 +15,40 @@ class App extends Component {
     }
   }
 
+  updateScore = (house) => {
+    const newScore = {
+      ...this.state,
+      [house]:  this.state[house] +1,
+    }
+
+    this.setState(
+      newScore
+    )
+    console.log(this.state)
+  }
+
+  pickHouse = () => {
+    const arr = Object.entries(this.state);
+    console.log(arr);
+    const house = arr.reduce((a, b)=> {
+      return b > a;
+    })
+    
+    
+  }
+
   render() {
     return (
       <div className="App">
+        {console.log('score', this.state)}
         <p>Hello, lets get you sorted out!</p>
         <NavLink to="/quiz"><button>Click Here To Begin</button></NavLink>
         <Route 
-        path="/quiz"
-        render={(props) => (
-          <Quiz {...props} house={this.state}/>
-        )} />
+          path="/quiz"
+          render={(props) => (
+            <Quiz {...props} house={this.state} updateScore={this.updateScore} pickHouse={this.pickHouse} />
+          )} 
+        />
       </div>
 
     );
